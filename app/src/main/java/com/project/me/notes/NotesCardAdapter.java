@@ -45,14 +45,19 @@ public class NotesCardAdapter extends RealmRecyclerViewAdapter<Note, NotesCardAd
             notification = (ImageView) view.findViewById(R.id.notification);
         }
     }
-    public NotesCardAdapter(OrderedRealmCollection<Note> data) {
-        super(data, true);
-        setHasStableIds(true);
-    }
-    /*public NotesCardAdapter(Context mContext, RealmCollection<Note> notes){
+//     public NotesCardAdapter(OrderedRealmCollection<Note> data) {
+//         super(data, true);
+//         setHasStableIds(true);
+//     }
+    public NotesCardAdapter(Context mContext, RealmCollection<Note> notes){
         this.mContext = mContext;
         this.notes = notes;
-    }*/
+    }
+    
+    public void setItems( RealmCollection<Note> notes){
+        this.notes.addAll(notes);
+        notifyDataSetChanged();
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
