@@ -33,12 +33,34 @@ import io.realm.RealmResults;
  * A simple {@link Fragment} subclass.
  */
 public class AllNotesFragment extends Fragment {
-
+    public static enum Tags{
+        ALL("all"),
+        TEXT("text),
+        MEDIA("media);
+        private String text;
+        public Tags(String text){
+            this.text = text;
+        }
+              
+        public String toString(){
+            return text;
+        }
+    }
+    private static final String TAG_KEY = "tag";
+    public static AllNotesFragment newInstance(String tag){
+        AllNotesFragment allNotesFragment = new AllNotesFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(TAG_KEY, teg);
+        allNotesFragment.setArguments(bundle);
+        return allNotesFragment;
+    }
+              
     private SwipeMenuLayout sml;
     private RecyclerView recyclerView;
     private NotesCardAdapter notesCardAdapter;
     private RealmResults<Note> noteList;
     Realm realm;
+    private String teg=null;
 
     public AllNotesFragment() {
         // Required empty public constructor
@@ -56,6 +78,15 @@ public class AllNotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        
+        this.teg = getArguments().getString(TAG_KEY,null);
+        if(this.teg.equals(Tags.ALL.toString())){
+            //all
+        }else if(this.teg.equals(Tags.TEXT.toString()){
+            //text
+        }else if(this.teg.equals(Tags.MEDIA.toString()){
+            //media
+        }
         View v = inflater.inflate(R.layout.fragment_notes, container, false);
         realm = Realm.getDefaultInstance();
         sml = (SwipeMenuLayout) v.findViewById(R.id.sml);
